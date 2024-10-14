@@ -1,0 +1,101 @@
+.Checkbox-wrapper{
+  padding: 20px;
+}
+.check-box wrapper h1 {
+
+  font-family: Barlow;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24.76px;
+  text-align: rigth;
+
+}
+
+.check-box wrapper h2 {
+
+  font-family: Barlow;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 56px;
+  text-align: left;
+
+}
+
+/* The container */
+.cb-container {
+  display: flex;
+  flex-direction: row;
+  width: 33%;
+  position: relative;
+  padding-left: 50px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+  height: 26px;
+  line-height: 46px;
+}
+
+/* Hide the browser's default checkbox */
+.cb-container input {
+
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+
+}
+
+/* Create a custom checkbox */
+.checkmark {
+
+  font-family: Barlow;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 28.8px;
+  text-align: right;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 45px;
+  width: 45px;
+  background-color: #FAF7F2;
+  border-radius: 6px;
+}
+
+/* On mouse-over, add a grey background color */
+.cb-container:hover input~.checkmark {
+  background-color: #FAF7F2;
+  ;
+}
+
+/* When the checkbox is checked, add a blue background */
+.cb-container input:checked~.checkmark {
+  background-color: #FDC913;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.cb-container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.cb-container .checkmark:after {
+  left: 20px;
+  top: 10px;
+  width: 5px;
+  height: 10px;
+  border: solid black;
+  border-radius: 3px;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}

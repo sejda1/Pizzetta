@@ -1,0 +1,45 @@
+input.radiobutton {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  position: absolute;
+  display: flex;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  box-shadow: inset 164px 164px 0px 164px gainsboro;
+  outline: none;
+}
+.size-item{
+
+  margin-right:10px;
+}
+input.radiobutton:checked {
+  box-shadow: inset 164px 164px 0px 164px #FFEECC;
+}
+
+input.radiobutton:checked+label.radiobutton-label {
+  color: gray;
+}
+
+label.radiobutton-label {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+  color: darkgray;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 44px;
+}
+
+label.radiobutton-label span {
+  font-size: 14px;
+  font-weight: normal;
+}
