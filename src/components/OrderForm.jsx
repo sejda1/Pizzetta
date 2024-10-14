@@ -74,8 +74,9 @@ function OrderForm({ onSubmit }) {
         } else {
             setErrorMessage(errorMessage);
             e.prevent.default();
+            const updatedForm = { ...form, quentity: Counter };
             axios
-                .post('https://reqres.in/api/pizza', setForm)
+                .post('https://reqres.in/api/pizza', updatedForm)
                 .then(response => {
                     onSubmit(response.data);
                     if (setErrorMessage(errorMessage)) {
