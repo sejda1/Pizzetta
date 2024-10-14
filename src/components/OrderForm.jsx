@@ -15,7 +15,7 @@ const dummyData = {
     note: "",
     quantity: "",
 }
-//const errorMessages=[name,size,dough,ingredients,note];
+const errorMessages=[name, size, dough, ingredients, note];
 const sizeData = ['S', 'M', 'L'];
 const doughTypeData = ['Kalın', 'Orta', 'İnce', 'Süper İnce'];
 const ingredientsData = ['Pepperoni', 'Tavuk Izgara', 'Mısır', 'Sarımsak',
@@ -64,7 +64,7 @@ function OrderForm({ onSubmit }) {
             setErrorMessage(prev => ({ ...prev, name: "* İsim en az 3 karakter içermelidir." }))
         }
         if (form.size.length < 1) {
-            setErrorMessage(prev => ({ ...prev, size: "* Lütfen bir boyut seçin.", }))
+            setErrorMessage(prev => ({ ...prev, size: "* Lütfen bir boyut seçin." }))
         }
         if (form.dough.length < 1) {
             setErrorMessage(prev => ({ ...prev, dough: "* Lütfen hamur kalınlığı seçin." }))
@@ -86,7 +86,7 @@ function OrderForm({ onSubmit }) {
                     }
                 })
                 .catch(error => {
-                   
+
                 });
         }
 
@@ -106,8 +106,8 @@ function OrderForm({ onSubmit }) {
     }, [form])
 
     const err = () => {
-        errorMessages.forEach((item) => {
-            return item;
+        errorMessages.forEach((index) => {
+            return index;
         })
     }
 
@@ -129,7 +129,7 @@ function OrderForm({ onSubmit }) {
                 <hr />
                 <Counter counterChange={handleCounterChange} />
                 <hr />
-                <p style={{ color: "red" }}>{errorMessages.name}</p>
+                <p style={{ color: "red" }}>{errorMessages(err)}</p>
                 <hr />
                 <p>TOTAL;{orderTotal}</p>
                 <p>INGTOTAL;{ingTotal}</p>
