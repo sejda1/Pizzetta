@@ -5,6 +5,7 @@ import SelectBox from "./SelectBox";
 import CheckBox from "./CheckBox";
 import Comment from "./Comment";
 import Counter from "./Counter";
+import axios from "axios";
 
 const dummyData = {
     name: "",
@@ -14,7 +15,7 @@ const dummyData = {
     note: "",
     quantity: "",
 }
-const errorMessages=[name,size,dough,ingredients,note];
+//const errorMessages=[name,size,dough,ingredients,note];
 const sizeData = ['S', 'M', 'L'];
 const doughTypeData = ['Kalın', 'Orta', 'İnce', 'Süper İnce'];
 const ingredientsData = ['Pepperoni', 'Tavuk Izgara', 'Mısır', 'Sarımsak',
@@ -52,28 +53,42 @@ function OrderForm({ onSubmit }) {
     const handleCounterChange = (quantity) => {
         setForm((prev) => ({ ...prev, quantity: quantity }))
     }
-    const handleNoteChange=(e) => {
+    const handleNoteChange = (e) => {
         setForm((prev) => ({ ...prev, note: e.target.value }))
     }
-    const handleSubmitOrder =()=>{
-        if(form.note.length<1){
-            setErrorMessage(prev=>({...prev, note:"Notu girin"}))
+    const handleSubmitOrder = (e) => {
+        if (form.note.length < 1) {
+            setErrorMessage(prev => ({ ...prev, note: "Notu girin" }))
         }
-        if(form.name.length<3){
-            setErrorMessage(prev=>({...prev, name: "* İsim en az 3 karakter içermelidir."}))
+        if (form.name.length < 3) {
+            setErrorMessage(prev => ({ ...prev, name: "* İsim en az 3 karakter içermelidir." }))
         }
-        if (form.size.length<1){
-            setErrorMessage(prev=>({...prev,  size: "* Lütfen bir boyut seçin.",}))
+        if (form.size.length < 1) {
+            setErrorMessage(prev => ({ ...prev, size: "* Lütfen bir boyut seçin.", }))
         }
-        if(form.dough.length<1){
-            setErrorMessage(prev=>({...prev, dough: "* Lütfen hamur kalınlığı seçin."}))
+        if (form.dough.length < 1) {
+            setErrorMessage(prev => ({ ...prev, dough: "* Lütfen hamur kalınlığı seçin." }))
         }
-        if(form.ingredients.length<4 || form.ingredients.length>10){
-            setErrorMessage(prev=>({...prev, ingredients : "* En az 4, en çok 10 tane malzeme seçmelisiniz!"}))
+        if (form.ingredients.length < 4 || form.ingredients.length > 10) {
+            setErrorMessage(prev => ({ ...prev, ingredients: "* En az 4, en çok 10 tane malzeme seçmelisiniz!" }))
+        } else {
+            setErrorMessage(errorMessage);
+            e.prevent.default();
+            axios
+                .post('https://reqres.in/api/pizza', setForm)
+                .then(response => {
+                    onSubmit(response.data);
+                    if (setErrorMessage(errorMessage)) {
+                        history.push("/success-order");
+                    } else {
+                        throw errorMessage("Sipariş verileri eksik veya hatalı!")
+                    }
+                })
+                .catch(error => {
+                   
+                });
         }
-        else {
-            setErrorMessage("");
-        }
+
     }
 
     useEffect(() => {
@@ -82,13 +97,18 @@ function OrderForm({ onSubmit }) {
 
     useEffect(() => {
         console.log(form);
-        
+
         let total = 85.50;
         total = (total + (form.ingredients.length * 5)) * form.quantity
         setOrderTotal(total)
         setIngTotal((form.ingredients.length * 5) * form.quantity)
     }, [form])
-    
+
+    const err = () => {
+        errorMessages.forEach((item) => {
+            return item;
+        })
+    }
 
     return (
         <>
@@ -108,7 +128,7 @@ function OrderForm({ onSubmit }) {
                 <hr />
                 <Counter counterChange={handleCounterChange} />
                 <hr />
-                <p style={{color:"red"}}>{errorMessages.[i]}</p>
+                <p style={{ color: "red" }}>{errorMessages.name}</p>
                 <hr />
                 <p>TOTAL;{orderTotal}</p>
                 <p>INGTOTAL;{ingTotal}</p>
