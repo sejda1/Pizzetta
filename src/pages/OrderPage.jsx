@@ -1,12 +1,18 @@
 import OrderHeader from "../components/OrderHeader";
 import OrderForm from "../components/OrderForm";
-//import MainLayout from "../layout/MainLayout";
+
 function OrderPage() {
+    const handleFormSubmit = (data) => {
+        console.log("Sipariş verisi:", data);
+       
+    };
+    
     return (
         <>
             
-            {/* <OrderHeader /> */}
-            <OrderForm />
+            <OrderHeader /> 
+            <OrderForm onSubmit={handleFormSubmit} />
+
             
         </>
     )
